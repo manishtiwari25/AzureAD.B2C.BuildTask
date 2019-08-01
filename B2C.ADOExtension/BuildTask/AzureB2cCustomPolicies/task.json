@@ -1,0 +1,47 @@
+{
+  "id": "28564eb8-f250-4cd6-b9db-d0d71e050fa3",
+  "name": "AzureB2cCustomPolicies",
+  "friendlyName": "Deploy Azure B2C Custom Policies",
+  "description": "",
+  "author": "",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "2",
+    "Patch": "3"
+  },
+  "minimumAgentVersion": "1.95.0",
+  "instanceNameFormat": "AzureB2cCustomPolicies $(message)",
+  "inputs": [
+    {
+      "name": "directoryPath",
+      "type": "filePath",
+      "label": "Policy Directory Path",
+      "required": true,
+      "helpMarkDown": "Please select File path for b2c policies and check if policySetting.json is availeble or not"
+    },
+    {
+      "name": "b2cDomain",
+      "type": "string",
+      "label": "B2C Domain/ Tenant name",
+      "defaultValue": "something",
+      "required": true,
+      "helpMarkDown": "You can find the tenant name from b2c tenant"
+    },
+    {
+      "name": "clientid",
+      "type": "string",
+      "label": "Application Id",
+      "defaultValue": "Some GUID",
+      "required": true,
+      "helpMarkDown": "Please Refer the documentation"
+    }
+  ],
+  "execution": {
+    "PowerShell3": {
+      "target": "azureB2cCustomPolicies.ps1"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2C.ADOExtension", "B2C.ADOExtension\B2C.ADOExtension.csproj", "{4F3D8B9F-E259-454E-93CF-9BC350366267}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F3D8B9F-E259-454E-93CF-9BC350366267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3D8B9F-E259-454E-93CF-9BC350366267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3D8B9F-E259-454E-93CF-9BC350366267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3D8B9F-E259-454E-93CF-9BC350366267}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39E134FA-C1FD-46AE-AF60-73DF27D14A9F}
+	EndGlobalSection
+EndGlobal

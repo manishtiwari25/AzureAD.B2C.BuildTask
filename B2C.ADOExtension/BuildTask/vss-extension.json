@@ -1,0 +1,52 @@
+{
+    "manifestVersion": 1,
+    "id": "AzureB2CCustomPolicy",
+    "version": "0.2.3",
+    "name": "AzureB2cCustomPolicies",
+    "description": "B2c Custom Policies Vsts Extension",
+    "publisher": "ManishID",
+    "public": false,
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "categories": [
+        "Azure Pipelines"
+      ],
+      "tags": [
+        "Azure",
+        "Azure-b2c",
+        "Azure-b2c-policies"
+      ],
+	  "icons": {
+    "default": "icon.png"
+		},
+      "repository": {
+        "type": "git",
+        "uri": "https://github.com/cloudthing"
+      },
+	   "content": {
+    "details": {
+      "path": "overview.md"
+    }
+  },
+      "contributions": [
+        {
+          "id": "AzureB2cCustomPolicies",
+          "type": "ms.vss-distributed-task.task",
+          "targets": [
+            "ms.vss-distributed-task.tasks"
+          ],
+          "properties": {
+            "name": "AzureB2cCustomPolicies"
+          }
+        }
+    ],
+    "files": [ 
+        {
+          "path": "AzureB2cCustomPolicies"
+        }
+		
+    ]
+}
