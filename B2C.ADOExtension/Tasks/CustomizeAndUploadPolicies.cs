@@ -15,6 +15,7 @@
             ValidateArguments(arguments);
             _jsonHelper = new JsonHelper(arguments[0]);
             _xmlHelper = new XMLHelper(arguments[0]);
+            Common.RaiseConsoleMessage(LogType.ERROR, $"Please Note We Are Using Beta Version of Graph api", false);
             _graphHelper = new GraphClientHelper(arguments[1], arguments[2], "beta", "https://graph.microsoft.com/");
         }
 
@@ -22,9 +23,9 @@
         {
             try
             {
-                Console.WriteLine("Updating the values");
+                Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating the values", false);
                 string fileName = _jsonHelper.GetJsonFileName();
-                Console.WriteLine("tRYING TO FETCH DATA FROM JSON");
+                Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Fetching Data from JSON", false);
                 var jsonProperties = _jsonHelper.GetAllPropertiesFromJson(fileName);
                 if (!string.IsNullOrEmpty(fileName))
                 {
@@ -33,7 +34,7 @@
                     
                     foreach (var policy in policies)
                     {
-                        Console.WriteLine("USING POLICY " + policy);
+                        Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policy}", false);
                         var xmlData = _xmlHelper.ReadFromXML(policy);
                         var tenantInfo = _jsonHelper.GetValueFromJson(fileName, "Tenant");
                         var updatedPolicy = Regex.Replace(xmlData, "{Settings:Tenant}", tenantInfo);
@@ -45,7 +46,10 @@
                                 updatedPolicy = Regex.Replace(updatedPolicy, "{Settings:" + property + "}", propertyValue);
                             }
                         }
+                        Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Updated B2C Custom Policy {policy}", false);
+                        Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Uploading Policy {policy} in B2C tenant", false);
                         var resp = _graphHelper.SendGraphPostRequest("/trustFramework/policies", updatedPolicy).GetAwaiter().GetResult();
+                        Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Uploaded", false);
                     }
                 }
             }

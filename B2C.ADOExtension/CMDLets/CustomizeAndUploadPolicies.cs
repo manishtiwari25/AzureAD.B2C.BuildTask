@@ -41,7 +41,7 @@
                 Console.WriteLine($"B2C Domain {b2CDomain}");
                 Console.WriteLine($"Client ID {clientId}");
                 var args = new string[] { directoryPath, b2CDomain, clientId };
-                var obj = new B2C.ADOExtension.Tasks.CustomizeAndUploadPolicies(args);
+                var obj = new Tasks.CustomizeAndUploadPolicies(args);
                 obj.UpdateValues();
             }
             catch (Exception ex)
