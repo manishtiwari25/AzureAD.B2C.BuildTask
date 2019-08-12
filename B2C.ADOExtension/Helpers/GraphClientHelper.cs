@@ -1,5 +1,6 @@
 ﻿namespace B2C.ADOExtension.Helpers
 {
+    using B2C.ADOExtension.Commons;
     using Microsoft.IdentityModel.Clients.ActiveDirectory;
     using Newtonsoft.Json;
     using System;
@@ -9,44 +10,54 @@
     using System.Threading.Tasks;
     public class GraphClientHelper
     {
-        private readonly string _clientId;
-        private readonly string _domainName;
         private readonly string _graphVersion;
         private readonly string _graphResourceName;
-        public GraphClientHelper(string domainName, string clientid, string graphVersion, string graphResourceName)
+        private readonly AuthenticationContext _authContext;
+        private readonly ClientCredential _credential;
+
+        public GraphClientHelper(string domainName, string clientid, string clientSecret, string graphVersion, string graphResourceName)
         {
-            // The client_id, client_secret, and tenant are pulled in from the App.config file
-            _domainName = domainName + ".onmicrosoft.com";
-            _clientId = clientid;
+            domainName += ".onmicrosoft.com";
             _graphVersion = graphVersion;
             _graphResourceName = graphResourceName;
-        }
-        private string GetToken()
-        {
-            AuthenticationContext ADALIdentityClientApp = new AuthenticationContext("https://login.microsoftonline.com/" + _domainName);
-            var authResult = ADALIdentityClientApp.AcquireTokenAsync("https://graph.microsoft.com", _clientId, new Uri("https://b2capi.com"), new PlatformParameters(PromptBehavior.Auto)).GetAwaiter().GetResult();
-            return authResult.AccessToken;
+            _graphVersion = graphVersion;
+            _graphResourceName = graphResourceName;
+            _authContext = new AuthenticationContext("https://login.microsoftonline.com/" + domainName);
+            _credential = new ClientCredential(clientid, clientSecret);
         }
 
         public async Task<string> SendGraphPostRequest(string api, string xml)
         {
-            var accessToken = GetToken();
-            HttpClient http = new HttpClient();
-            string url = _graphResourceName + _graphVersion + api;
-
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            request.Content = new StringContent(xml, Encoding.UTF8, "application/xml");
-            HttpResponseMessage response = await http.SendAsync(request);
-
-            if (!response.IsSuccessStatusCode)
+            Common.RaiseConsoleMessage(LogType.DEBUG, $"Graph Client : Fetching Graph Access Token", false);
+            var accessToken = GetToken(_authContext, _credential, _graphResourceName);
+            Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Successfully Fetched Access Token", false);
+            using (HttpClient http = new HttpClient())
             {
-                string error = await response.Content.ReadAsStringAsync();
-                object formatted = JsonConvert.DeserializeObject(error);
-                throw new Exception("Error Calling the Graph API: \n" + JsonConvert.SerializeObject(formatted, Formatting.Indented));
+                string url = _graphResourceName + _graphVersion + api;
+                Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Graph URL {url}", false);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                request.Content = new StringContent(xml, Encoding.UTF8, "application/xml");
+                Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Calling Graph API", false);
+                using (HttpResponseMessage response = await http.SendAsync(request))
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string error = await response.Content.ReadAsStringAsync();
+                        object formatted = JsonConvert.DeserializeObject(error);
+                        throw new Exception("Error Calling the Graph API: \n" + JsonConvert.SerializeObject(formatted, Formatting.Indented));
+                    }
+                    Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Successfully Called", false);
+                    return await response.Content.ReadAsStringAsync();
+                }
             }
+        }
 
-            return await response.Content.ReadAsStringAsync();
+        private string GetToken(AuthenticationContext authContext, ClientCredential credential, string graphResourceName)
+        {
+            AuthenticationResult result = authContext.AcquireTokenAsync(graphResourceName, credential).GetAwaiter().GetResult();
+            var accessToken = result.AccessToken;
+            return accessToken;
         }
     }
 }

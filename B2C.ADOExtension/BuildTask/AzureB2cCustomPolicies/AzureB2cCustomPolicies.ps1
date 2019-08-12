@@ -9,9 +9,11 @@ Trace-VstsEnteringInvocation $MyInvocation
     $DirectoryPath = Get-VstsInput -Name directoryPath -Require
     $B2CDomain = Get-VstsInput -Name b2cDomain -Require
     $ClientId = Get-VstsInput -Name clientid -Require
+	$ClientSecret = Get-VstsInput -Name clientsecret -Require
 try {
-    Import-Module .\Test.dll   
-    New-CustomizeAndUploadPolicies -directoryPath "$DirectoryPath"  -b2CDomain "$B2CDomain" -clientId "$ClientId" -Verbose
+    Import-Module .\B2C.ADOExtension.dll   
+
+    New-CustomizeAndUploadPolicies -directoryPath "$DirectoryPath"  -b2CDomain "$B2CDomain" -clientId "$ClientId" -clientSecret $ClientSecret -Verbose
 }
 catch{
     Write-Host $_.Exception.Message; 

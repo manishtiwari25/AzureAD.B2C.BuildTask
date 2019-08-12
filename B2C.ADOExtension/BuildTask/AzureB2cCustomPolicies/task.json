@@ -10,7 +10,7 @@
   "version": {
     "Major": "0",
     "Minor": "2",
-    "Patch": "3"
+    "Patch": "7"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "AzureB2cCustomPolicies $(message)",
@@ -34,7 +34,15 @@
       "name": "clientid",
       "type": "string",
       "label": "Application Id",
-      "defaultValue": "Some GUID",
+      "defaultValue": "00000000-0000-0000-0000-000000000000",
+      "required": true,
+      "helpMarkDown": "Please Refer the documentation"
+    },
+    {
+      "name": "clientsecret",
+      "type": "string",
+      "label": "Application Secret",
+      "defaultValue": "Applcation Secret",
       "required": true,
       "helpMarkDown": "Please Refer the documentation"
     }

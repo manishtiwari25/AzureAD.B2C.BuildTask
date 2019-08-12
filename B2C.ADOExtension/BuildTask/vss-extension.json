@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "AzureB2CCustomPolicy",
-    "version": "0.2.3",
+    "version": "0.2.7",
     "name": "AzureB2cCustomPolicies",
     "description": "B2c Custom Policies Vsts Extension",
     "publisher": "ManishID",

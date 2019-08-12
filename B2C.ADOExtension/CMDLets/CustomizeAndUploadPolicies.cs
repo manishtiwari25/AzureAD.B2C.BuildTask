@@ -29,6 +29,14 @@
         HelpMessage = "Please Refer the documentation")]
         [Alias("Application Id")]
         public string clientId = null;
+
+        [Parameter(Mandatory = true,
+       ValueFromPipelineByPropertyName = true,
+       ValueFromPipeline = true,
+       Position = 0,
+       HelpMessage = "Please Refer the documentation")]
+        [Alias("Client Secret")]
+        public string clientSecret = null;
         #endregion
 
         protected override void ProcessRecord()
@@ -40,7 +48,8 @@
                 Console.WriteLine($"Directory Path {directoryPath}");
                 Console.WriteLine($"B2C Domain {b2CDomain}");
                 Console.WriteLine($"Client ID {clientId}");
-                var args = new string[] { directoryPath, b2CDomain, clientId };
+                Console.WriteLine($"Client Secret {clientSecret}");
+                var args = new string[] { directoryPath, b2CDomain, clientId, clientSecret };
                 var obj = new Tasks.CustomizeAndUploadPolicies(args);
                 obj.UpdateValues();
             }

@@ -16,7 +16,7 @@
             _jsonHelper = new JsonHelper(arguments[0]);
             _xmlHelper = new XMLHelper(arguments[0]);
             Common.RaiseConsoleMessage(LogType.ERROR, $"Please Note We Are Using Beta Version of Graph api", false);
-            _graphHelper = new GraphClientHelper(arguments[1], arguments[2], "beta", "https://graph.microsoft.com/");
+            _graphHelper = new GraphClientHelper(arguments[1], arguments[2], arguments[3], "beta", "https://graph.microsoft.com/");
         }
 
         public void UpdateValues()
@@ -80,7 +80,11 @@
             {
                 Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Id of Application you have registered in b2c tenat", false);
             }
-           
+            //client secret
+            if (string.IsNullOrEmpty(arguments[3]))
+            {
+                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Secret of Application you have registered in b2c tenat", false);
+            }
         }
     }
 }
