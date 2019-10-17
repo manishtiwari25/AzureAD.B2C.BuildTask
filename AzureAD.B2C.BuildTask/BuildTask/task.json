@@ -10,12 +10,15 @@
   "version": {
     "Major": "1",
     "Minor": "0",
-    "Patch": "2"
+    "Patch": "3"
   },
   "visibility": [
     "Build",
     "Release"
   ],
+  "icons": {
+    "default": "icon.png"
+  },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "AzureB2cCustomPolicies $(message)",
   "inputs": [
@@ -50,14 +53,13 @@
       "required": true,
       "helpMarkDown": "Application secret of the application you have registered in b2c tenant"
     },
-
     {
       "name": "json",
       "type": "multiLine",
-      "label": "JSON",
-      "defaultValue": "",
+      "label": "JSON Values",
+      "defaultValue": "{ key : value }",
       "required": true,
-      "helpMarkDown": "JSON values"
+      "helpMarkDown": "JSON values in key value format"
     }
   ],
   "execution": {

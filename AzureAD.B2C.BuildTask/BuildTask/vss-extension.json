@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "id": "AzureADB2CBuildTask",
+  "id": "AzureADB2CBuildTask-Test",
   "version": "1.0.2",
   "name": "Azure Active Directory B2C Task",
   "description": "Automate azure B2C custom policy deployment",
@@ -17,7 +17,8 @@
   "tags": [
     "Azure",
     "Azure-b2c",
-    "Azure-b2c-policies"
+    "Azure-b2c-policies",
+    "trustFrameworkPolicy"
   ],
   "icons": {
     "default": "icon.png"
