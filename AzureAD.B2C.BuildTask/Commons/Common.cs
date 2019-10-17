@@ -1,4 +1,4 @@
-﻿namespace B2C.ADOExtension.Commons
+﻿namespace AzureAD.B2C.BuildTask.Commons
 {
     using System;
     public class Common
@@ -21,19 +21,15 @@
             {
                 case LogType.ERROR:
                     logMessage += "ERROR : ";
-                    Console.ForegroundColor = ConsoleColor.Red;
                     break;
                 case LogType.INFO:
                     logMessage += "INFO : ";
-                    Console.ForegroundColor = ConsoleColor.Green;
                     break;
                 case LogType.WARN:
                     logMessage += "WARN : ";
-                    Console.ForegroundColor = ConsoleColor.Blue;
                     break;
                 default:
                 case LogType.DEBUG:
-                    Console.ResetColor();
                     break;
             }
             Console.WriteLine(string.Concat(logMessage, message));

@@ -1,17 +1,21 @@
 {
   "id": "28564eb8-f250-4cd6-b9db-d0d71e050fa3",
-  "name": "AzureB2cCustomPolicies",
-  "friendlyName": "Deploy Azure B2C Custom Policies",
-  "description": "",
-  "author": "",
+  "name": "ADB2CPolicyAzureDevOpsExtension",
+  "friendlyName": "Azure AD(B2C) Custom Policy Task",
+  "description": "Deploy Azure B2C Custom Policies",
+  "author": "Manish Tiwari",
   "helpMarkDown": "",
   "category": "Utility",
   "demands": [],
   "version": {
     "Major": "1",
     "Minor": "0",
-    "Patch": "0"
+    "Patch": "1"
   },
+  "visibility": [
+    "Build",
+    "Release"
+  ],
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "AzureB2cCustomPolicies $(message)",
   "inputs": [
@@ -20,7 +24,7 @@
       "type": "filePath",
       "label": "Policy Directory Path",
       "required": true,
-      "helpMarkDown": "Please select File path for b2c policies and check if policySetting.json is availeble or not"
+      "helpMarkDown": "Please select File path for b2c policies and check if policySetting.json is available or not"
     },
     {
       "name": "b2cDomain",
@@ -36,7 +40,7 @@
       "label": "Application Id",
       "defaultValue": "00000000-0000-0000-0000-000000000000",
       "required": true,
-      "helpMarkDown": "Please Refer the documentation"
+      "helpMarkDown": "Application Id of the application you have registered in b2c tenant"
     },
     {
       "name": "clientsecret",
@@ -44,7 +48,16 @@
       "label": "Application Secret",
       "defaultValue": "Applcation Secret",
       "required": true,
-      "helpMarkDown": "Please Refer the documentation"
+      "helpMarkDown": "Application secret of the application you have registered in b2c tenant"
+    },
+
+    {
+      "name": "json",
+      "type": "multiLine",
+      "label": "JSON",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "JSON values"
     }
   ],
   "execution": {

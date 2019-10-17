@@ -11,7 +11,7 @@ Trace-VstsEnteringInvocation $MyInvocation
     $ClientId = Get-VstsInput -Name clientid -Require
 	$ClientSecret = Get-VstsInput -Name clientsecret -Require
 try {
-    Import-Module .\B2C.ADOExtension.dll   
+    Import-Module .\AzureAD.B2C.BuildTask.dll   
 
     New-CustomizeAndUploadPolicies -directoryPath "$DirectoryPath"  -b2CDomain "$B2CDomain" -clientId "$ClientId" -clientSecret $ClientSecret -Verbose
 }

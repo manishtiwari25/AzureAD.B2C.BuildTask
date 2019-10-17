@@ -1,4 +1,4 @@
-﻿namespace B2C.ADOExtension.Tasks
+﻿namespace AzureAD.B2C.BuildTask.Tasks
 {
     public abstract class Task
     {
