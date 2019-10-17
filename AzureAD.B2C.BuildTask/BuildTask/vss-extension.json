@@ -1,6 +1,6 @@
 {
   "manifestVersion": 1,
-  "id": "AzureB2CCustomPolicy",
+  "id": "AzureADB2CBuildTask",
   "version": "1.0.2",
   "name": "Azure Active Directory B2C Task",
   "description": "Automate azure B2C custom policy deployment",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "uri": "https://github.com/cloudthing"
+    "uri": "https://github.com/manishtiwari25/AzureAD.B2C.BuildTask"
   },
   "content": {
     "details": {
@@ -33,19 +33,19 @@
   },
   "contributions": [
     {
-      "id": "AzureB2cCustomPolicies",
+      "id": "AzureADB2CBuildTask",
       "type": "ms.vss-distributed-task.task",
       "targets": [
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "AzureB2cCustomPolicies"
+        "name": "AzureADB2CBuildTask"
       }
     }
   ],
   "files": [
     {
-      "path": "AzureB2cCustomPolicies"
+      "path": "AzureADB2CBuildTask"
     }
 
   ]
