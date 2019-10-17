@@ -13,7 +13,6 @@
   <ItemGroup>
     <None Remove="BuildTask\icon.png" />
     <None Remove="BuildTask\ManishTiwari-Azureb2c.AzureB2CCustomPolicy-1.0.2.vsix" />
-    <None Remove="BuildTask\overview.md" />
     <None Remove="BuildTask\vss-extension.json" />
   </ItemGroup>
 
