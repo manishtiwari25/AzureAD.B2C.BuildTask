@@ -1,6 +1,6 @@
-﻿namespace B2C.ADOExtension.Helpers
+﻿namespace AzureAD.B2C.BuildTask.Helpers
 {
-    using B2C.ADOExtension.Commons;
+    using AzureAD.B2C.BuildTask.Commons;
     using System;
     using System.Collections.Generic;
     using System.IO;

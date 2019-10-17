@@ -1,6 +1,6 @@
-﻿namespace B2C.ADOExtension.Helpers
+﻿namespace AzureAD.B2C.BuildTask.Helpers
 {
-    using B2C.ADOExtension.Commons;
+    using AzureAD.B2C.BuildTask.Commons;
     using Microsoft.IdentityModel.Clients.ActiveDirectory;
     using Newtonsoft.Json;
     using System;
@@ -35,12 +35,12 @@
             {
                 string url = _graphResourceName + _graphVersion + api;
                 Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Graph URL {url}", false);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, url);
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                 request.Content = new StringContent(xml, Encoding.UTF8, "application/xml");
                 Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Calling Graph API", false);
                 using (HttpResponseMessage response = await http.SendAsync(request))
-                {
+                { 
                     if (!response.IsSuccessStatusCode)
                     {
                         string error = await response.Content.ReadAsStringAsync();

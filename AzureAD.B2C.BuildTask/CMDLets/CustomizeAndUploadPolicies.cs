@@ -1,4 +1,4 @@
-﻿namespace B2C.ADOExtension.CMDLets
+﻿namespace AzureAD.B2C.BuildTask.CMDLets
 {
     using System;
     using System.Management.Automation;
@@ -26,7 +26,7 @@
         ValueFromPipelineByPropertyName = true,
         ValueFromPipeline = true,
         Position = 0,
-        HelpMessage = "Please Refer the documentation")]
+        HelpMessage = "Application Id of the application you have registered in b2c tenant")]
         [Alias("Application Id")]
         public string clientId = null;
 
@@ -34,9 +34,17 @@
        ValueFromPipelineByPropertyName = true,
        ValueFromPipeline = true,
        Position = 0,
-       HelpMessage = "Please Refer the documentation")]
+       HelpMessage = "Application Secret of the application you have registered in b2c tenant")]
         [Alias("Client Secret")]
         public string clientSecret = null;
+
+        [Parameter(Mandatory = true,
+        ValueFromPipelineByPropertyName = true,
+        ValueFromPipeline = true,
+        Position = 0,
+        HelpMessage = "JSON Values")]
+        [Alias("Client Secret")]
+        public string JSON = null;
         #endregion
 
         protected override void ProcessRecord()
@@ -49,7 +57,8 @@
                 Console.WriteLine($"B2C Domain {b2CDomain}");
                 Console.WriteLine($"Client ID {clientId}");
                 Console.WriteLine($"Client Secret {clientSecret}");
-                var args = new string[] { directoryPath, b2CDomain, clientId, clientSecret };
+                Console.WriteLine($"JSON String {JSON}");
+                var args = new string[] { directoryPath, b2CDomain, clientId, clientSecret, JSON };
                 var obj = new Tasks.CustomizeAndUploadPolicies(args);
                 obj.UpdateValues();
             }

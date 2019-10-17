@@ -1,4 +1,4 @@
-﻿namespace B2C.ADOExtension.Commons
+﻿namespace AzureAD.B2C.BuildTask.Commons
 {
     public enum LogType
     {

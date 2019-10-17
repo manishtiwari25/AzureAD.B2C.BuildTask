@@ -1,13 +1,14 @@
-﻿namespace B2C.ADOExtension.Tasks
+﻿namespace AzureAD.B2C.BuildTask.Tasks
 {
-    using B2C.ADOExtension.Commons;
-    using B2C.ADOExtension.Helpers;
+    using AzureAD.B2C.BuildTask.Commons;
+    using AzureAD.B2C.BuildTask.Helpers;
     using System;
     using System.Text.RegularExpressions;
     public class CustomizeAndUploadPolicies : Task
     {
         private readonly JsonHelper _jsonHelper;
         private readonly XMLHelper _xmlHelper;
+        private readonly string _json;
         private readonly GraphClientHelper _graphHelper;
 
         public CustomizeAndUploadPolicies(string[] arguments)
@@ -15,7 +16,8 @@
             ValidateArguments(arguments);
             _jsonHelper = new JsonHelper(arguments[0]);
             _xmlHelper = new XMLHelper(arguments[0]);
-            Common.RaiseConsoleMessage(LogType.ERROR, $"Please Note We Are Using Beta Version of Graph api", false);
+            _json = arguments[4];
+            Common.RaiseConsoleMessage(LogType.INFO, $"Please Note We Are Using Beta Version of Graph api", false);
             _graphHelper = new GraphClientHelper(arguments[1], arguments[2], arguments[3], "beta", "https://graph.microsoft.com/");
         }
 
@@ -24,25 +26,22 @@
             try
             {
                 Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating the values", false);
-                string fileName = _jsonHelper.GetJsonFileName();
-                Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Fetching Data from JSON", false);
-                var jsonProperties = _jsonHelper.GetAllPropertiesFromJson(fileName);
-                if (!string.IsNullOrEmpty(fileName))
+                var jsonProperties = _jsonHelper.GetAllPropertiesFromJson(_json);
+                if (!string.IsNullOrEmpty(_json))
                 {
-                    Console.WriteLine("USING FILE "+ fileName);
                     var policies = _xmlHelper.FetchXmlFromDirectory();
                     
                     foreach (var policy in policies)
                     {
                         Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policy}", false);
                         var xmlData = _xmlHelper.ReadFromXML(policy);
-                        var tenantInfo = _jsonHelper.GetValueFromJson(fileName, "Tenant");
+                        var tenantInfo = _jsonHelper.GetValueFromJson(_json, "Tenant");
                         var updatedPolicy = Regex.Replace(xmlData, "{Settings:Tenant}", tenantInfo);
                         if (jsonProperties.PolicySettings != null)
                         {
                             foreach (var property in jsonProperties.PolicySettings)
                             {
-                                var propertyValue = _jsonHelper.GetValueFromJson(fileName, property);
+                                var propertyValue = _jsonHelper.GetValueFromJson(_json, property);
                                 updatedPolicy = Regex.Replace(updatedPolicy, "{Settings:" + property + "}", propertyValue);
                             }
                         }

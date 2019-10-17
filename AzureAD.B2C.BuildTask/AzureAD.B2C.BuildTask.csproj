@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BuildTask\AzureB2cCustomPolicies\**" />
+    <EmbeddedResource Remove="BuildTask\AzureB2cCustomPolicies\**" />
+    <None Remove="BuildTask\AzureB2cCustomPolicies\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BuildTask\icon.png" />
+    <None Remove="BuildTask\ManishTiwari-Azureb2c.AzureB2CCustomPolicy-1.0.2.vsix" />
+    <None Remove="BuildTask\overview.md" />
+    <None Remove="BuildTask\vss-extension.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.2" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+</Project>
