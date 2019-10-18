@@ -43,7 +43,7 @@
         ValueFromPipeline = true,
         Position = 0,
         HelpMessage = "JSON Values")]
-        [Alias("Client Secret")]
+        [Alias("JSON Values")]
         public string JSON = null;
         #endregion
 
