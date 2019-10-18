@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "AzureADB2CBuildTask-Test",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "name": "Azure Active Directory B2C Task",
   "description": "Automate azure B2C custom policy deployment",
   "publisher": "ManishTiwari-Azureb2c",
@@ -21,7 +21,7 @@
     "trustFrameworkPolicy"
   ],
   "icons": {
-    "default": "icon.png"
+    "default": "images/icon.png"
   },
   "repository": {
     "type": "git",
