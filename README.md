@@ -10,8 +10,10 @@ Please test your code before raising any PR
 
 How to run project locally
 there are two ways
+</br>
 1: change the project type to console application and create 1 Main class 
+</br>
 2: run AazureB2cCustomPolicies.ps1, please update all dll after each build for latest changes
-
+</br>
 How to Use the extension
 # Medium Article Coming Soon 
