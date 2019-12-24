@@ -30,7 +30,7 @@
                 if (!string.IsNullOrEmpty(_json))
                 {
                     var policies = _xmlHelper.FetchXmlFromDirectory();
-                    
+                    _xmlHelper.MoveFirst(policies);
                     foreach (var policy in policies)
                     {
                         Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policy}", false);
