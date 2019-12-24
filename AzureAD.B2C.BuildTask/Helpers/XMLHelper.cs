@@ -53,5 +53,27 @@
             }
             return default;
         }
+
+        public void MoveFirst(List<string> policies)
+        {
+            var indexOfBase = policies.FindIndex(x => x.Contains("TrustFrameworkBase"));
+            var indexOfExtension = policies.FindIndex(x => x.Contains("TrustFrameworkExtensions"));
+
+            if (indexOfBase != -1)
+            {
+                //Move Base
+                var itemBase = policies[indexOfBase];
+                policies[indexOfBase] = policies[0];
+                policies[0] = itemBase;
+            }
+
+            if (indexOfExtension != -1)
+            {
+                //Move Exyension
+                var itemExtension = policies[indexOfExtension];
+                policies[indexOfExtension] = policies[1];
+                policies[1] = itemExtension;
+            }
+        }
     }
 }

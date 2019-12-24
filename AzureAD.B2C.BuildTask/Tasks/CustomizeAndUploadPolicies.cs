@@ -24,46 +24,38 @@
 
         public void UpdateValues()
         {
-            if (!_anyValidationError)
+            try
             {
-                try
+                Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating the values", false);
+                var jsonProperties = _jsonHelper.GetAllPropertiesFromJson(_json);
+                if (!string.IsNullOrEmpty(_json))
                 {
-                    Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating the values", false);
-                    var jsonProperties = _jsonHelper.GetAllPropertiesFromJson(_json);
-                    if (!string.IsNullOrEmpty(_json))
+                    var policies = _xmlHelper.FetchXmlFromDirectory();
+                    _xmlHelper.MoveFirst(policies);
+                    foreach (var policy in policies)
                     {
-                        var policies = _xmlHelper.FetchXmlFromDirectory();
-
-                        foreach (var policy in policies)
+                        Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policy}", false);
+                        var xmlData = _xmlHelper.ReadFromXML(policy);
+                        var tenantInfo = _jsonHelper.GetValueFromJson(_json, "Tenant");
+                        var updatedPolicy = Regex.Replace(xmlData, "{Settings:Tenant}", tenantInfo);
+                        if (jsonProperties.PolicySettings != null)
                         {
-                            var tempPolicyPathArray = policy.Split('\\');
-                            var policyName = tempPolicyPathArray[tempPolicyPathArray.Length - 1].Split('.')[0];
-                            Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policyName}", false);
-                            var xmlData = _xmlHelper.ReadFromXML(policy);
-                            var tenantInfo = _jsonHelper.GetValueFromJson(_json, "Tenant");
-                            var updatedPolicy = Regex.Replace(xmlData, "{Settings:Tenant}", tenantInfo);
-                            if (jsonProperties != null)
+                            foreach (var property in jsonProperties.PolicySettings)
                             {
-                                foreach (var property in jsonProperties)
-                                {
-                                    var propertyValue = (string)property.Value;
-                                    updatedPolicy = Regex.Replace(updatedPolicy, "{Settings:" + property + "}", propertyValue);
-                                }
+                                var propertyValue = _jsonHelper.GetValueFromJson(_json, property);
+                                updatedPolicy = Regex.Replace(updatedPolicy, "{Settings:" + property + "}", propertyValue);
                             }
-
-                            var api = string.Format("/trustFramework/policies/B2C_1A_{0}/$value", policyName);
-
-                            Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Updated B2C Custom Policy {policyName}", false);
-                            Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Uploading Policy {policyName} in B2C tenant", false);
-                            var resp = _graphHelper.SendGraphPostRequest(api, updatedPolicy).GetAwaiter().GetResult();
-                            Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Uploaded", false);
                         }
+                        Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Updated B2C Custom Policy {policy}", false);
+                        Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Uploading Policy {policy} in B2C tenant", false);
+                        var resp = _graphHelper.SendGraphPostRequest("/trustFramework/policies", updatedPolicy).GetAwaiter().GetResult();
+                        Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Uploaded", false);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Common.RaiseConsoleMessage(LogType.ERROR, $"Something Went Wrong : {ex.Message}", false);
-                }
+            }
+            catch (Exception ex)
+            {
+                Common.RaiseConsoleMessage(LogType.ERROR, $"Something Went Wrong : {ex.Message}", false);
             }
         }
 
