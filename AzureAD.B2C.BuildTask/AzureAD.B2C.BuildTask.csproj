@@ -93,7 +93,11 @@
     <Compile Include="Commons\LogType.cs" />
     <Compile Include="Helpers\GraphClientHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\KeysetHelper.cs" />
     <Compile Include="Helpers\XMLHelper.cs" />
+    <Compile Include="Modles\GenerateKey.cs" />
+    <Compile Include="Modles\KeySet.cs" />
+    <Compile Include="Modles\OdataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\CustomizeAndUploadPolicies.cs" />
     <Compile Include="Tasks\Task.cs" />

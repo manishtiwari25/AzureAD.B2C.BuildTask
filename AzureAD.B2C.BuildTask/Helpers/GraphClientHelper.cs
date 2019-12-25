@@ -26,21 +26,25 @@
             _credential = new ClientCredential(clientid, clientSecret);
         }
 
-        public async Task<string> SendGraphPostRequest(string api, string xml)
+        public async Task<string> SendGraphPostRequest(HttpMethod method, string api, string xmlorjson, bool isJson)
         {
             Common.RaiseConsoleMessage(LogType.DEBUG, $"Graph Client : Fetching Graph Access Token", false);
             var accessToken = GetToken(_authContext, _credential, _graphResourceName);
-            Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Successfully Fetched Access Token", false);
+            Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Successfully Fetched Access Token", true);
             using (HttpClient http = new HttpClient())
             {
                 string url = _graphResourceName + _graphVersion + api;
-                Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Graph URL {url}", false);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, url);
+                Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Graph URL {url}", true);
+                HttpRequestMessage request = new HttpRequestMessage(method, url);
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                request.Content = new StringContent(xml, Encoding.UTF8, "application/xml");
-                Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Calling Graph API", false);
+                if (!string.IsNullOrEmpty(xmlorjson))
+                {
+                    var content = isJson ? "application/json" : "application/xml";
+                    request.Content = new StringContent(xmlorjson, Encoding.UTF8, content);
+                }
+                Common.RaiseConsoleMessage(LogType.INFO, $"Graph Client : Calling Graph API", true);
                 using (HttpResponseMessage response = await http.SendAsync(request))
-                { 
+                {
                     if (!response.IsSuccessStatusCode)
                     {
                         string error = await response.Content.ReadAsStringAsync();
