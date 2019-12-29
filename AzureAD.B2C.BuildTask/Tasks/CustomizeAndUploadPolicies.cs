@@ -10,16 +10,17 @@
     using System.Text.RegularExpressions;
     public class CustomizeAndUploadPolicies : Task
     {
-        private readonly bool _anyValidationError;
         private readonly JsonHelper _jsonHelper;
         private readonly XMLHelper _xmlHelper;
         private readonly string _json;
         private readonly GraphClientHelper _graphHelper;
         private readonly KeysetHelper _keysetHelper;
+        private readonly Error _error;
 
         public CustomizeAndUploadPolicies(string[] arguments)
         {
-            _anyValidationError = ValidateArguments(arguments);
+            _error = new Error();
+            ValidateArguments(arguments);
             _jsonHelper = new JsonHelper(arguments[0]);
             _xmlHelper = new XMLHelper(arguments[0]);
             _json = arguments[4];
@@ -28,9 +29,9 @@
             _keysetHelper = new KeysetHelper(_graphHelper);
         }
 
-        public void UpdateValues()
+        public Error UpdateValues()
         {
-            if (!_anyValidationError)
+            if (!_error.AnyError)
             {
                 try
                 {
@@ -70,44 +71,55 @@
                 catch (Exception ex)
                 {
                     Common.RaiseConsoleMessage(LogType.ERROR, $"Something Went Wrong : {ex.Message}", false);
+                    _error.ErrorMessage = $"Something Went Wrong : {ex.Message}";
+                    _error.AnyError = true;
                 }
             }
+            return _error;
         }
 
-        public override bool ValidateArguments(string[] arguments)
+        public override void ValidateArguments(string[] arguments)
         {
-            var anyError = false;
-            //directory uri
-            if (string.IsNullOrEmpty(arguments[0]))
+            if (string.IsNullOrEmpty(arguments[5]))
             {
-                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Path Value", false);
-                anyError = true;
+                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Task Type (Build/Release)", false);
+                _error.AnyError = true;
             }
-            //domainName (B2C Domain)
-            if (string.IsNullOrEmpty(arguments[1]))
+            else
             {
-                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide B2C Domain", false);
-                anyError = true;
+                //directory uri
+                if (arguments[5] == "Build" && string.IsNullOrEmpty(arguments[0]))
+                {
+                    Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Path Value", false);
+                    _error.AnyError = true;
+                }
+                //domainName (B2C Domain)
+                if (arguments[5] == "Release" && string.IsNullOrEmpty(arguments[1]))
+                {
+                    Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide B2C Domain", false);
+                    _error.AnyError = true;
+                }
+                //clientid
+                if (arguments[5] == "Release" && string.IsNullOrEmpty(arguments[2]))
+                {
+                    Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Id of Application you have registered in b2c tenat", false);
+                    _error.AnyError = true;
+                }
+                //client secret
+                if (arguments[5] == "Release" && string.IsNullOrEmpty(arguments[3]))
+                {
+                    Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Secret of Application you have registered in b2c tenat", false);
+                    _error.AnyError = true;
+                }
+                //json
+                if (arguments[5] == "Build" && string.IsNullOrEmpty(arguments[4]))
+                {
+                    Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide JSON", false);
+                    _error.AnyError = true;
+                }
             }
-            //clientid
-            if (string.IsNullOrEmpty(arguments[2]))
-            {
-                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Id of Application you have registered in b2c tenat", false);
-                anyError = true;
-            }
-            //client secret
-            if (string.IsNullOrEmpty(arguments[3]))
-            {
-                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Secret of Application you have registered in b2c tenat", false);
-                anyError = true;
-            }
-            //json
-            if (string.IsNullOrEmpty(arguments[4]))
-            {
-                Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide JSON", false);
-                anyError = true;
-            }
-            return anyError;
+
+            _error.ErrorMessage = _error.AnyError ? "Input Validation Error" :string.Empty;
         }
     }
 }

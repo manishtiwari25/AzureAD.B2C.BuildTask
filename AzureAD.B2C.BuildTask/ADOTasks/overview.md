@@ -4,6 +4,8 @@ this build task enable following features
 1. it will replace all the environment related configuration
 2. it will create/update policies in azure 
 
+To know more about azure b2c custom policies, please click [here](https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-get-started-custom?tabs=applications).
+
 # Installation and Configuration
 1. Go to azure b2c tenant
 2. Register an application in b2c tenant

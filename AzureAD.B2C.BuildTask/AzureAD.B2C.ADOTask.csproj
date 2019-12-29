@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="CMDLets\CustomizeAndUploadPolicies.cs" />
     <Compile Include="Commons\Common.cs" />
+    <Compile Include="Commons\Error.cs" />
     <Compile Include="Commons\LogType.cs" />
     <Compile Include="Helpers\GraphClientHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
@@ -103,10 +104,12 @@
     <Compile Include="Tasks\Task.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BuildTask\AzureADB2CBuildTask\AzureADB2CBuildTask.ps1" />
-    <None Include="BuildTask\AzureADB2CBuildTask\task.json" />
-    <None Include="BuildTask\overview.md" />
-    <None Include="BuildTask\vss-extension.json" />
+    <None Include="ADOTasks\AzureADB2CBuildTask\AzureADB2CBuildTask.ps1" />
+    <None Include="ADOTasks\AzureADB2CBuildTask\task.json" />
+    <None Include="ADOTasks\AzureADB2CReleaseTask\AzureADB2CReleaseTask.ps1" />
+    <None Include="ADOTasks\AzureADB2CReleaseTask\task.json" />
+    <None Include="ADOTasks\overview.md" />
+    <None Include="ADOTasks\vss-extension.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

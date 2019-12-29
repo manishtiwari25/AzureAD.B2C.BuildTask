@@ -2,6 +2,6 @@
 {
     public abstract class Task
     {
-        public abstract bool ValidateArguments(string[] arguments);
+        public abstract void ValidateArguments(string[] arguments);
     }
 }

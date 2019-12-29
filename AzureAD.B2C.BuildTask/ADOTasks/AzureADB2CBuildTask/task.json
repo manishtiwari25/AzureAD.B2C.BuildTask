@@ -1,6 +1,6 @@
 {
   "id": "28564eb8-f250-4cd6-b9db-d0d71e050fa3",
-  "name": "AzureADB2CBuildTask-Test",
+  "name": "AzureADB2CBuildTask",
   "friendlyName": "Azure AD(B2C) Custom Policy Task",
   "description": "Deploy Azure B2C Custom Policies",
   "author": "Manish Tiwari",
@@ -10,12 +10,14 @@
   "version": {
     "Major": "1",
     "Minor": "0",
-    "Patch": "4"
+    "Patch": "9"
   },
   "visibility": [
-    "Build",
-    "Release"
+    "Build"
   ],
+  "icons": {
+    "default": "icon.png"
+  },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "AzureB2cCustomPolicies $(message)",
   "inputs": [
@@ -50,14 +52,13 @@
       "required": true,
       "helpMarkDown": "Application secret of the application you have registered in b2c tenant"
     },
-
     {
       "name": "json",
       "type": "multiLine",
-      "label": "JSON",
-      "defaultValue": "",
+      "label": "JSON Values",
+      "defaultValue": "{ key : value }",
       "required": true,
-      "helpMarkDown": "JSON values"
+      "helpMarkDown": "JSON values in key value format"
     }
   ],
   "execution": {
