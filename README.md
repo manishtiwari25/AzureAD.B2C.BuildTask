@@ -17,4 +17,4 @@ there are two ways
 </br>
 
 ## How to Use the extension
-#### Medium Article Coming Soon 
+Please visit Marketplace page => https://marketplace.visualstudio.com/items?itemName=ManishTiwari-Azureb2c.AzureADB2CBuildTask
