@@ -4,6 +4,7 @@
     using AzureAD.B2C.BuildTask.Helpers;
     using AzureAD.B2C.BuildTask.Modles;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Linq;
     using System.Net.Http;
@@ -51,10 +52,10 @@
                             var updatedPolicy = Regex.Replace(xmlData, "{Settings:Tenant}", tenantInfo);
                             if (jsonProperties != null)
                             {
-                                foreach (var property in jsonProperties)
+                                foreach (JProperty property in jsonProperties)
                                 {
                                     var propertyValue = (string)property.Value;
-                                    updatedPolicy = Regex.Replace(updatedPolicy, "{Settings:" + property + "}", propertyValue);
+                                    updatedPolicy = Regex.Replace(updatedPolicy, "{Settings:" + property.Name + "}", propertyValue);
                                 }
                             }
 
