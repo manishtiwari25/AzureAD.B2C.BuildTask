@@ -5,15 +5,11 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    public class XMLHelper
-    {
-        public readonly string _directoryPath;
-        public XMLHelper(string directoryPath)
-        {
-            _directoryPath = directoryPath;
-        }
+    using System.Text;
 
-        public string ReadFromXML(string xmlPath)
+    public static class XMLHelper
+    {
+        public static string ReadFromXML(string xmlPath)
         {
             var jsonStream = new StreamReader(xmlPath);
 
@@ -23,7 +19,36 @@
                 return xml;
             }
         }
-        public List<string> FetchXmlFromDirectory()
+        public static void WriteXMLInFolder(string artifactPublishPath, string policyName, string updatedPolicy) 
+        {
+            try
+            {
+                var fileStream = File.Create(string.Format("{0}/{1}.xml", artifactPublishPath, policyName));
+                using (fileStream)
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes(updatedPolicy);
+                    fileStream.Write(info, 0, info.Length);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Common.RaiseConsoleMessage(LogType.ERROR, "Can't read file from the directory, Access Denied", false);
+            }
+            catch (PathTooLongException)
+            {
+                Common.RaiseConsoleMessage(LogType.ERROR, "Directory path is too long, please reduce the path and try again", false);
+            }
+            catch (IOException)
+            {
+                Common.RaiseConsoleMessage(LogType.ERROR, "IO Error", false);
+            }
+            catch (Exception ex)
+            {
+                Common.RaiseConsoleMessage(LogType.ERROR, $"Something Went Wrong : {ex.Message}", false);
+            }
+        }
+
+        public static List<string> FetchXmlFromDirectory(string _directoryPath)
         {
             try
             {
@@ -54,7 +79,7 @@
             return default;
         }
 
-        public void MoveFirst(List<string> policies)
+        public static void MoveFirst(List<string> policies)
         {
             var indexOfBase = policies.FindIndex(x => x.Contains("TrustFrameworkBase"));
             var indexOfExtension = policies.FindIndex(x => x.Contains("TrustFrameworkExtensions"));

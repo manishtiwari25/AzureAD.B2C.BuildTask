@@ -9,10 +9,11 @@ Trace-VstsEnteringInvocation $MyInvocation
 $B2CDomain = Get-VstsInput -Name b2cDomain -Require
 $ClientId = Get-VstsInput -Name clientid -Require
 $ClientSecret = Get-VstsInput -Name clientsecret -Require
+$ArtifactPublishPath = $(Build.ArtifactStagingDirectory)
 try {
     Import-Module .\AzureAD.B2C.BuildTask.dll   
 
-    New-CustomizeAndUploadPolicies  -b2CDomain "$B2CDomain" -clientId "$ClientId" -clientSecret "$ClientSecret" -taskType "Release"  -Verbose
+    New-ReleasePolicies  -b2CDomain "$B2CDomain" -clientId "$ClientId" -clientSecret "$ClientSecret" -artifactPublishPath "$ArtifactPublishPath" -Verbose
 }
 catch{
     Write-Host $_.Exception.Message; 

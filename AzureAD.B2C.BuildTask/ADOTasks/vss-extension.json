@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
-  "id": "AzureADB2CBuildTask",
-  "version": "1.0.12",
+  "id": "AzureADB2CBuildTask-Test",
+  "version": "2.0.1",
   "name": "Azure Active Directory B2C Task",
   "description": "Automate azure B2C custom policy deployment",
   "publisher": "ManishTiwari-Azureb2c",
@@ -42,12 +42,24 @@
       "properties": {
         "name": "AzureADB2CBuildTask"
       }
+    },
+    {
+      "id": "AzureADB2CReleaseTask",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "AzureADB2CReleaseTask"
+      }
     }
   ],
   "files": [
     {
       "path": "AzureADB2CBuildTask"
+    },
+    {
+      "path": "AzureADB2CReleaseTask"
     }
-
   ]
 }

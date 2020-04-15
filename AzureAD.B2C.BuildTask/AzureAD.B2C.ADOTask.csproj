@@ -88,7 +88,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CMDLets\CustomizeAndUploadPolicies.cs" />
+    <Compile Include="CMDLets\BuildPolicies.cs" />
+    <Compile Include="CMDLets\ReleasePolicies.cs" />
     <Compile Include="Commons\Common.cs" />
     <Compile Include="Commons\Error.cs" />
     <Compile Include="Commons\LogType.cs" />
@@ -100,7 +101,8 @@
     <Compile Include="Modles\KeySet.cs" />
     <Compile Include="Modles\OdataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tasks\CustomizeAndUploadPolicies.cs" />
+    <Compile Include="Tasks\BuildPolicies.cs" />
+    <Compile Include="Tasks\ReleasePolicies.cs" />
     <Compile Include="Tasks\Task.cs" />
   </ItemGroup>
   <ItemGroup>

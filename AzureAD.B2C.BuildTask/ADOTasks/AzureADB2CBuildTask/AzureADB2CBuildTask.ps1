@@ -8,10 +8,11 @@ Trace-VstsEnteringInvocation $MyInvocation
 # Set the working directory.
 $DirectoryPath = Get-VstsInput -Name directoryPath -Require
 $JSON = Get-VstsInput -Name json -Require
+$ArtifactPublishPath = $(Build.ArtifactStagingDirectory)
 try {
     Import-Module .\AzureAD.B2C.BuildTask.dll   
 
-    New-CustomizeAndUploadPolicies -directoryPath "$DirectoryPath" -JSON "$Json" -taskType "Build"  -Verbose
+    New-BuildPolicies -directoryPath "$DirectoryPath" -JSON "$Json" -artifactPublishPath "$ArtifactPublishPath" -Verbose
 }
 catch{
     Write-Host $_.Exception.Message; 

@@ -3,14 +3,8 @@
     using AzureAD.B2C.BuildTask.Commons;
     using Newtonsoft.Json;
     using System;
-    using System.IO;
     public class JsonHelper
     {
-        private readonly string _directoryPath;
-        public JsonHelper(string directoryPath)
-        {
-            _directoryPath = directoryPath;
-        }
         public dynamic GetAllPropertiesFromJson(string json)
         {
             try
