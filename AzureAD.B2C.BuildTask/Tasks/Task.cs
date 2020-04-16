@@ -1,7 +1,7 @@
 ﻿namespace AzureAD.B2C.BuildTask.Tasks
 {
-    public abstract class Task
+    public interface Task
     {
-        public abstract bool ValidateArguments(string[] arguments);
+        void ValidateArguments(string[] arguments);
     }
 }

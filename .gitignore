@@ -288,3 +288,4 @@ __pycache__/
 *.xsd.cs
 
 /CT.Tools.D365.CI/BuildTasks/ct*/ps_modules/
+*.vsix
