@@ -1,20 +1,13 @@
 ﻿using AzureAD.B2C.BuildTask.Commons;
 using AzureAD.B2C.BuildTask.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AzureAD.B2C.BuildTask.Tasks
 {
     public class ReleasePolicies : Task
     {
-        private string b2CDomain;
-        private string clientId;
-        private string clientSecret;
-        private string artifactPublishPath;
+        private readonly string artifactPublishPath;
         private readonly Error _error;
         private readonly GraphClientHelper _graphHelper;
         private readonly KeysetHelper _keysetHelper;
@@ -22,9 +15,6 @@ namespace AzureAD.B2C.BuildTask.Tasks
         {
             _error = new Error();
             ValidateArguments(new string[] { b2CDomain, clientId, clientSecret });
-            this.b2CDomain = b2CDomain;
-            this.clientId = clientId;
-            this.clientSecret = clientSecret;
             this.artifactPublishPath = artifactPublishPath;
 
             Common.RaiseConsoleMessage(LogType.INFO, $"Please Note We Are Using Beta Version of Graph api", false);
@@ -39,7 +29,7 @@ namespace AzureAD.B2C.BuildTask.Tasks
                 {
                     _keysetHelper.HandleKeysets();
                     Common.RaiseConsoleMessage(LogType.DEBUG, $"Fetch Policies : Fetching Policies", false);
-                    var policies = XMLHelper.FetchXmlFromDirectory(artifactPublishPath);
+                    var policies = XMLHelper.FetchXmlFromDirectory(artifactPublishPath, _error);
                     Common.RaiseConsoleMessage(LogType.DEBUG, $"Fetch Policies : Successfully Fetched", false);
                     XMLHelper.MoveFirst(policies);
                     foreach (var policy in policies)
@@ -47,9 +37,9 @@ namespace AzureAD.B2C.BuildTask.Tasks
                         var tempPolicyPathArray = policy.Split('\\');
                         var policyName = tempPolicyPathArray[tempPolicyPathArray.Length - 1].Split('.')[0];
                         Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policyName}", false);
-                        
-                        var xmlData = XMLHelper.ReadFromXML(policy);
-                        
+
+                        var xmlData = XMLHelper.ReadFromXML(policy, _error);
+
                         var api = string.Format("/trustFramework/policies/B2C_1A_{0}/$value", policyName);
 
                         Common.RaiseConsoleMessage(LogType.INFO, $"Update Policy Values : Successfully Updated B2C Custom Policy {policyName}", false);
@@ -76,18 +66,18 @@ namespace AzureAD.B2C.BuildTask.Tasks
                 _error.AnyError = true;
             }
             //clientid
-            if ( string.IsNullOrEmpty(arguments[1]))
+            if (string.IsNullOrEmpty(arguments[1]))
             {
                 Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Id of Application you have registered in b2c tenat", false);
                 _error.AnyError = true;
             }
             //client secret
-            if ( string.IsNullOrEmpty(arguments[2]))
+            if (string.IsNullOrEmpty(arguments[2]))
             {
                 Common.RaiseConsoleMessage(LogType.ERROR, "Please Provide Client Secret of Application you have registered in b2c tenat", false);
                 _error.AnyError = true;
             }
-          
+
             _error.ErrorMessage = _error.AnyError ? "Input Validation Error" : string.Empty;
         }
     }

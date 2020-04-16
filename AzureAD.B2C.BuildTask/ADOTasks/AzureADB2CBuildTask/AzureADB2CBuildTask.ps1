@@ -8,7 +8,7 @@ Trace-VstsEnteringInvocation $MyInvocation
 # Set the working directory.
 $DirectoryPath = Get-VstsInput -Name directoryPath -Require
 $JSON = Get-VstsInput -Name json -Require
-$ArtifactPublishPath = $(Build.ArtifactStagingDirectory)
+$ArtifactPublishPath =  Get-VstsInput -Name artifactPublishPath -Require
 try {
     Import-Module .\AzureAD.B2C.BuildTask.dll   
 

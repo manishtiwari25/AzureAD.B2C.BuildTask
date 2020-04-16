@@ -9,7 +9,7 @@ Trace-VstsEnteringInvocation $MyInvocation
 $B2CDomain = Get-VstsInput -Name b2cDomain -Require
 $ClientId = Get-VstsInput -Name clientid -Require
 $ClientSecret = Get-VstsInput -Name clientsecret -Require
-$ArtifactPublishPath = $(Build.ArtifactStagingDirectory)
+$ArtifactPublishPath =  Get-VstsInput -Name artifactPublishPath -Require
 try {
     Import-Module .\AzureAD.B2C.BuildTask.dll   
 

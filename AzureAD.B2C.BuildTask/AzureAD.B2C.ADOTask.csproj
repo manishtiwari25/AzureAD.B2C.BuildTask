@@ -112,7 +112,6 @@
     <None Include="ADOTasks\AzureADB2CReleaseTask\task.json" />
     <None Include="ADOTasks\overview.md" />
     <None Include="ADOTasks\vss-extension.json" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

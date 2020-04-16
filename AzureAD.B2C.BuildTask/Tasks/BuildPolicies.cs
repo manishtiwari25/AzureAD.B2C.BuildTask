@@ -2,11 +2,7 @@
 using AzureAD.B2C.BuildTask.Helpers;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AzureAD.B2C.BuildTask.Tasks
 {
@@ -17,10 +13,10 @@ namespace AzureAD.B2C.BuildTask.Tasks
         private readonly JsonHelper _jsonHelper;
         private readonly string _artifactPublishPath;
         private readonly string _directoryPath;
-        public BuildPolicies(string directoryPath, string jSON,string artifactPublishPath)
+        public BuildPolicies(string directoryPath, string jSON, string artifactPublishPath)
         {
             _error = new Error();
-            ValidateArguments(new string[]{ directoryPath, jSON});
+            ValidateArguments(new string[] { directoryPath, jSON });
             _json = jSON;
             _jsonHelper = new JsonHelper();
             _directoryPath = directoryPath;
@@ -33,13 +29,13 @@ namespace AzureAD.B2C.BuildTask.Tasks
             {
                 try
                 {
-                    
+
                     Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating the values", false);
                     var jsonProperties = _jsonHelper.GetAllPropertiesFromJson(_json);
                     if (!string.IsNullOrEmpty(_json))
                     {
                         Common.RaiseConsoleMessage(LogType.DEBUG, $"Fetch Policies : Fetching Policies", false);
-                        var policies = XMLHelper.FetchXmlFromDirectory(_directoryPath);
+                        var policies = XMLHelper.FetchXmlFromDirectory(_directoryPath, _error);
                         Common.RaiseConsoleMessage(LogType.DEBUG, $"Fetch Policies : Successfully Fetched", false);
                         XMLHelper.MoveFirst(policies);
                         foreach (var policy in policies)
@@ -47,7 +43,7 @@ namespace AzureAD.B2C.BuildTask.Tasks
                             var tempPolicyPathArray = policy.Split('\\');
                             var policyName = tempPolicyPathArray[tempPolicyPathArray.Length - 1].Split('.')[0];
                             Common.RaiseConsoleMessage(LogType.DEBUG, $"Update Policy Values : Updating B2C Custom Policy {policyName}", false);
-                            var xmlData = XMLHelper.ReadFromXML(policy);
+                            var xmlData = XMLHelper.ReadFromXML(policy, _error);
                             var tenantInfo = _jsonHelper.GetValueFromJson(_json, "Tenant");
                             var updatedPolicy = Regex.Replace(xmlData, "{Settings:Tenant}", tenantInfo);
                             if (jsonProperties != null)
@@ -59,7 +55,7 @@ namespace AzureAD.B2C.BuildTask.Tasks
                                 }
                             }
                             Common.RaiseConsoleMessage(LogType.DEBUG, $"Save Policy in Artifect Folder", false);
-                            XMLHelper.WriteXMLInFolder(_artifactPublishPath, policyName, updatedPolicy);
+                            XMLHelper.WriteXMLInFolder(_artifactPublishPath, policyName, updatedPolicy, _error);
                             Common.RaiseConsoleMessage(LogType.DEBUG, $"SuccessFully Saved", false);
                         }
                     }

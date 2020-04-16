@@ -1,11 +1,10 @@
 ﻿namespace AzureAD.B2C.BuildTask.Helpers
 {
-    using System;
-    using System.Linq;
-    using System.Net.Http;
     using AzureAD.B2C.BuildTask.Commons;
     using AzureAD.B2C.BuildTask.Modles;
     using Newtonsoft.Json;
+    using System.Linq;
+    using System.Net.Http;
 
     public class KeysetHelper
     {
