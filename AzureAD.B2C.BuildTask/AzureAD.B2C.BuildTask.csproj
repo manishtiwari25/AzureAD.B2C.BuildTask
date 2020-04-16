@@ -95,9 +95,9 @@
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\KeysetHelper.cs" />
     <Compile Include="Helpers\XMLHelper.cs" />
-    <Compile Include="Modles\GenerateKey.cs" />
-    <Compile Include="Modles\KeySet.cs" />
-    <Compile Include="Modles\OdataModel.cs" />
+    <Compile Include="Models\GenerateKey.cs" />
+    <Compile Include="Models\KeySet.cs" />
+    <Compile Include="Models\OdataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\CustomizeAndUploadPolicies.cs" />
     <Compile Include="Tasks\Task.cs" />
