@@ -1,7 +1,7 @@
 ﻿namespace AzureAD.B2C.BuildTask.Modles
 {
-    using System.Collections.Generic;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
 
     [JsonObject]
     public class OdataModel<T>

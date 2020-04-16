@@ -42,12 +42,24 @@
       "properties": {
         "name": "AzureADB2CBuildTask"
       }
+    },
+    {
+      "id": "AzureADB2CReleaseTask",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "AzureADB2CReleaseTask"
+      }
     }
   ],
   "files": [
     {
       "path": "AzureADB2CBuildTask"
+    },
+    {
+      "path": "AzureADB2CReleaseTask"
     }
-
   ]
 }

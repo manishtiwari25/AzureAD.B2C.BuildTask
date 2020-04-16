@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAD.B2C.BuildTask", "AzureAD.B2C.BuildTask\AzureAD.B2C.BuildTask.csproj", "{AE80AB74-E7CC-41B0-A994-B43A505EF7ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAD.B2C.ADOTask", "AzureAD.B2C.BuildTask\AzureAD.B2C.ADOTask.csproj", "{AE80AB74-E7CC-41B0-A994-B43A505EF7ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
