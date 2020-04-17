@@ -1,0 +1,24 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: B2CBuildTask@1
+
+  inputs:
+    directoryPath: '$(Build.Repository.LocalPath)\Policies'
+    json: |
+      {
+        "Tenant":"b2cbuildtask",
+        "ProxyIdentityExperienceFrameworkAppId":"cee6da68-5427-4d6e-8fcb-09e58a8bb38a",
+        "IdentityExperienceFrameworkAppId":"227deb13-7761-44f7-aefb-34113e04f901"
+      }
+    artifactPublishPath: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

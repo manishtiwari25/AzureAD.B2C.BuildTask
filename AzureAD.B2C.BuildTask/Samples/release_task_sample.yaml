@@ -1,0 +1,8 @@
+steps:
+- task: ManishTiwari-Azureb2c.AzureADB2CBuildTaskTest.AzureADB2CReleaseTask.B2CReleaseTask@1
+  displayName: 'AzureB2cCustomPolicies '
+  inputs:
+    b2cDomain: b2cbuildtask
+    clientid: ''
+    clientsecret: ''
+    artifactPublishPath: '$(System.ArtifactsDirectory)/Azure B2C Extension/policies'
