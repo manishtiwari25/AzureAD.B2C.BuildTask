@@ -93,5 +93,5 @@ To know more about azure b2c custom policies, please click [here](https://docs.m
         - Artifact Publish Path - Path from above task
     5. save and run
 
-    ![image](https://raw.githubusercontent.com/manishtiwari25/AzureAD.B2C.BuildTask/master/AzureAD.B2C.BuildTask/ADOTasks/images/release1.png)<br>
+    ![image](https://raw.githubusercontent.com/manishtiwari25/AzureAD.B2C.BuildTask/master/AzureAD.B2C.BuildTask/ADOTasks/images/releasepipeline.png)<br>
     ![image](https://raw.githubusercontent.com/manishtiwari25/AzureAD.B2C.BuildTask/master/AzureAD.B2C.BuildTask/ADOTasks/images/release2.png)
