@@ -15,7 +15,7 @@ try {
     New-BuildPolicies -directoryPath "$DirectoryPath" -JSON "$Json" -artifactPublishPath "$ArtifactPublishPath" -Verbose
 }
 catch{
-    Write-Host $_.Exception.Message; 
+    Write-Error $_.Exception.Message; 
 }
 finally {
     Trace-VstsLeavingInvocation $MyInvocation
