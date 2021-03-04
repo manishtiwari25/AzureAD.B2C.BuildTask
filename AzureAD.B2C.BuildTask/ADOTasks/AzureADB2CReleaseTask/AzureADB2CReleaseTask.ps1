@@ -16,7 +16,7 @@ try {
     New-ReleasePolicies  -b2CDomain "$B2CDomain" -clientId "$ClientId" -clientSecret "$ClientSecret" -artifactPublishPath "$ArtifactPublishPath" -Verbose
 }
 catch{
-    Write-Host $_.Exception.Message; 
+    Write-Error $_.Exception.Message; 
 }
 finally {
     Trace-VstsLeavingInvocation $MyInvocation
