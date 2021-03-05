@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "AzureADB2CBuildTask",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "name": "Azure AD B2C",
   "description": "Automate Azure B2C custom policy build and release",
   "publisher": "ManishTiwari-Azureb2c",
